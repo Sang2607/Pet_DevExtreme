@@ -1,0 +1,68 @@
+﻿@page
+@{
+    ViewData["Title"] = "StudentsView";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>StudentsView</h2>
+
+@(Html.DevExtreme().DataGrid<PetProjects_Dev_Extreme.Models.Student>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Students")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("SchedulerID")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+        columns.AddFor(m => m.SchedulerID);
+
+        columns.AddFor(m => m.DoB);
+
+        columns.AddFor(m => m.Name);
+
+        columns.AddFor(m => m.Address);
+
+        columns.AddFor(m => m.ClassStudent);
+
+        columns.AddFor(m => m.Maths);
+
+        columns.AddFor(m => m.Physical);
+
+        columns.AddFor(m => m.Chemistry);
+
+      @*  columns.AddFor(m => m.Medium);*@
+    })
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+        .Mode(GridEditMode.Form)
+    )
+    .Export(e => e.Enabled(true).AllowExportSelectedData(true))
+    .AllowColumnReordering(true)
+    .AllowColumnResizing(true)
+    .Selection(s => s.Mode(SelectionMode.Multiple))
+     .HeaderFilter(f => f.Visible(true))
+    .GroupPanel(p => p.Visible(true))
+    .Grouping(g => g.AutoExpandAll(false))
+    .RemoteOperations(true)
+    .FilterRow(f => f.Visible(true))
+    .Paging(p => p.PageSize(3))
+
+    .Pager(p => p
+    .ShowPageSizeSelector(true)
+    .AllowedPageSizes(new[] { 5, 10, 20 })
+    .ShowInfo(true)
+    )
+
+    .ShowBorders(false)
+    .FilterRow(f => f.Visible(true))
+    .FocusedRowEnabled(true)
+    .FocusedRowIndex(0)
+    .ColumnAutoWidth(true)
+    .ColumnHidingEnabled(true)
+)
